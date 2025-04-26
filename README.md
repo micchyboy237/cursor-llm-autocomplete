@@ -1,18 +1,14 @@
 # Cursor LLM Autocomplete
 
-A Visual Studio Code extension for Cursor IDE that provides custom code autocompletion using a local Qwen2.5-Coder model via the Ollama API.
+A VSCode extension that provides AI-powered code autocompletion for Python, JavaScript, and TypeScript using the Qwen2.5-Coder model via a local LLM endpoint, triggered manually with Ctrl+Cmd+K.
 
 ## Features
 
 - AI-powered code autocompletion for Python, JavaScript, and TypeScript.
-- Integrates with a local Ollama server at `http://localhost:11434/api/generate`.
-- Supports streaming responses for real-time code suggestions.
-- Suggestions appear automatically as you type and can be accepted with **Tab**.
+- Triggered via `Ctrl+Cmd+K` or the command palette (`Trigger LLM Autocomplete`).
 
-## Requirements
+## Extension Settings
 
-- **Ollama**: Install Ollama and pull the `qwen2.5-coder` model:
-  ```bash
-  ollama pull qwen2.5-coder
-  ollama serve
-  ```
+- `cursor-llm-autocomplete.apiEndpoint`: Local LLM API endpoint (default: `http://localhost:11434/api/generate`).
+- `cursor-llm-autocomplete.model`: Local LLM model (default: `qwen2.5-coder`).
+- `cursor-llm-autocomplete.maxContextLength`: Maximum context length in characters (default: `1000`).

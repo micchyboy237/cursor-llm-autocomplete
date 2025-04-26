@@ -1,42 +1,85 @@
 {
   "name": "cursor-llm-autocomplete",
-  "displayName": "cursor-llm-autocomplete",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "Cursor LLM Autocomplete",
+  "description": "AI-powered code autocompletion for Python, JavaScript, and TypeScript using Local LLM's Qwen2.5-Coder model, triggered via Ctrl+Cmd+K.",
+  "version": "0.0.3",
+  "publisher": "micchyboy237",
   "engines": {
-    "vscode": "^1.99.0"
+    "vscode": "^1.96.2"
   },
   "categories": [
+    "Programming Languages",
     "Other"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "autocomplete",
+    "local",
+    "llm",
+    "ai",
+    "python",
+    "javascript",
+    "typescript"
+  ],
+  "activationEvents": [
+    "onCommand:cursor-llm-autocomplete.triggerCompletion"
+  ],
   "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "cursor-llm-autocomplete.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package",
+    "package": "vsce package && chmod +r *.vsix",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test --vscodeVersion=1.96.2 --extensionTestsPath=./out/test"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "cursor-llm-autocomplete.triggerCompletion",
+        "title": "Trigger LLM Autocomplete"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "cursor-llm-autocomplete.triggerCompletion",
+        "key": "ctrl+cmd+k",
+        "mac": "ctrl+cmd+k",
+        "when": "editorTextFocus && editorLangId in ['python', 'javascript', 'typescript']"
+      }
+    ],
+    "configuration": {
+      "title": "Cursor LLM Autocomplete",
+      "properties": {
+        "cursor-llm-autocomplete.apiEndpoint": {
+          "type": "string",
+          "default": "http://localhost:11434/api/generate",
+          "description": "Local LLM API endpoint for code completion."
+        },
+        "cursor-llm-autocomplete.model": {
+          "type": "string",
+          "default": "qwen2.5-coder",
+          "description": "Local LLM model to use for code completion."
+        },
+        "cursor-llm-autocomplete.maxContextLength": {
+          "type": "number",
+          "default": 1000,
+          "description": "Maximum number of characters to send as context to the API."
+        }
+      }
+    }
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.99.0",
+    "@types/sinon": "^17.0.4",
+    "@types/vscode": "^1.96.2",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
+    "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.16.0",
+    "sinon": "^20.0.0",
     "typescript": "^5.7.2"
   },
   "dependencies": {
